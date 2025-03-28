@@ -1,5 +1,10 @@
 # UnixBenchRiscV
-# UnixBenchRiscV
+<p>
+UnixBench5 や、その実行に必要な perl の xs モジュールである
+Time::HiRes を RISC-V 向けにクロスコンパイルしてターゲットへインストー
+ルする手順について説明します．
+</p>
+
 ## Time-HiRes のビルドとインストール
 
 ### クロスコンパイル環境での作業
