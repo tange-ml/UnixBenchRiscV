@@ -1,6 +1,6 @@
 # UnixBenchRiscV
 <p>
-UnixBench5 や、その実行に必要な perl の xs モジュールである
+UnixBench5 や，その実行に必要な perl の xs モジュールである
 Time::HiRes を RISC-V 向けにクロスコンパイルしてターゲットへインストー
 ルする手順について説明します．
 </p>
@@ -144,3 +144,48 @@ make
 cd ~/UnixBench/
 ./Run
 ```
+
+### UnixBench5 の実行結果
+
+| テスト日時   | 2025/03/27 22:30           |
+| FPGA DATA    | 4014_03_rev13_sha_0624c4   |
+| 標準出力ログ | UnixBench-202503272230.tar |
+
+<p>
+下記結果の INDEX は，基準となる Sun SPARCstation 20 SM61 を 10 とした
+ときの値です．
+</p>
+
+```
+System Benchmarks Index Values               BASELINE       RESULT    INDEX
+Dhrystone 2 using register variables         116700.0     163658.4     14.0
+Double-Precision Whetstone                       55.0         39.4      7.2
+Execl Throughput                                 43.0         10.9      2.5
+File Copy 1024 bufsize 2000 maxblocks          3960.0       2161.0      5.5
+File Copy 256 bufsize 500 maxblocks            1655.0        599.5      3.6
+File Copy 4096 bufsize 8000 maxblocks          5800.0       5958.0     10.3
+Pipe Throughput                               12440.0       2699.0      2.2
+Pipe-based Context Switching                   4000.0        487.6      1.2
+Process Creation                                126.0         21.1      1.7
+Shell Scripts (1 concurrent)                     42.4         29.1      6.9
+Shell Scripts (8 concurrent)                      6.0          7.3     12.1
+System Call Overhead                          15000.0       4676.3      3.1
+                                                                   ========
+System Benchmarks Index Score                                           4.4
+```
+
+<p>
+整数演算，8 つのシェルスクリプト実行は，Sun SPARCstation 20 SM61 と同
+等以上のパフォーマンスと言えます．4 KByte バッファー 8000 ブロックのファ
+イルコピーに関しては，HDD と TmpFs の比較となるため優劣を比較しにくい
+と考えます．
+</p>
+
+| システム                 | コア数 | 周波数 |
+| ---                      |    --- | ---    |
+| Sun SPARCstation 20 SM61 |      1 | 60 MHz |
+| 本ターゲット             |      8 | 25 MHz |
+
+<p>
+(1*60)/(8*25) = 0.3 倍すると本ターゲットコアの効率が予測できます．
+</p>
